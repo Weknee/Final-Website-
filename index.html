@@ -1,100 +1,232 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Classic Filipino Recipes</title>
-<style>
-body { font-family: Arial, sans-serif; margin: 20px; }
-.container { display: flex; gap: 30px; }
-.recipe-list { width: 30%; }
-.recipe-list li { margin-bottom: 10px; cursor: pointer; color: blue; text-decoration: underline; }
-.recipe-page { width: 70%; border-left: 1px solid #ccc; padding-left: 20px; }
-.hidden { display: none; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Filipino Recipes Finder</title>
+  <style>
+    :root{
+      --accent:#e94b5c;
+      --muted:#f4f4f6;
+      --radius:12px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:#fafafa;color:#222;overflow-x:hidden;font-family:inherit}
+
+    /* header */
+    .topbar{
+      background:linear-gradient(180deg,var(--accent),#d64b58);
+      color:white;
+      padding:12px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .logo{font-weight:700;font-size:20px}
+    .search{flex:1;min-width:200px}
+    .search input{width:100%;padding:10px 16px;border-radius:20px;border:0;outline:0}
+    .team-button{
+      background:rgba(255,255,255,0.2);
+      padding:8px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:500;
+      transition:0.2s;
+    }
+    .team-button:hover{background:white;color:var(--accent);}
+
+    /* layout */
+    .container{display:grid;grid-template-columns:280px 1fr;padding:22px;gap:20px;position:relative}
+
+    /* left design / featured recipes */
+    .left-design{
+      background:white;padding:18px;border-radius:14px;box-shadow:0 6px 18px rgba(10,10,20,0.04);
+      display:flex;flex-direction:column;gap:16px;
+    }
+    .left-design h4{margin:0 0 8px 0;color:#e94b5c;font-size:16px;text-align:center;}
+    .featured-card{
+      display:flex;gap:10px;align-items:center;background:var(--muted);padding:8px;border-radius:10px;cursor:pointer;
+      transition:0.2s;
+    }
+    .featured-card img{width:50px;height:40px;object-fit:cover;border-radius:6px;}
+    .featured-card:hover{background:#cfeadf;}
+
+    /* main */
+    .main{padding:6px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+    .tag{background:var(--muted);padding:8px 12px;border-radius:999px;font-size:13px}
+
+    h1{font-size:28px;margin:8px 0}
+    .sub{color:#666;margin-bottom:10px}
+
+    /* recipe list */
+    .recipes{display:grid;grid-template-columns:1fr;gap:12px}
+    .card{display:flex;gap:12px;align-items:center;background:white;padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(10,10,20,0.04);cursor:pointer;transition:0.2s}
+    .card:hover{transform:scale(1.02)}
+    .card img{width:180px;height:110px;object-fit:cover;border-radius:8px}
+    .card .meta{flex:1}
+    .card .meta h3{margin:4px 0;font-size:16px}
+    .card .meta p{margin:4px 0;color:#777;font-size:13px}
+
+    /* slide panel */
+    .recipe-panel{
+      position:fixed;
+      top:5%;
+      right:-500px;
+      width:500px;
+      max-width:40%;
+      height:90%;
+      background:white;
+      box-shadow:-8px 0 30px rgba(10,10,20,0.2);
+      transition: right 0.3s ease;
+      padding:20px;
+      overflow-y:auto;
+      z-index:100;
+      border-left:4px solid var(--accent);
+      border-radius:12px 0 0 12px;
+    }
+    .recipe-panel.active{right:0}
+    .recipe-panel img{width:100%;border-radius:12px;margin-bottom:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+    .recipe-panel h2{margin-top:0;color:var(--accent);}
+    .recipe-panel h3{margin-bottom:4px;color:#333;}
+    .recipe-panel pre{white-space:pre-wrap;line-height:1.5;color:#555;font-family:inherit;background:#f9f9f9;padding:8px;border-radius:8px;}
+    .close-btn{
+      position:absolute;
+      top:10px;
+      right:15px;
+      font-size:20px;
+      cursor:pointer;
+      font-weight:bold;
+      color:#e94b5c;
+    }
+    .video-link{margin-top:10px;display:inline-block;color:#e94b5c;text-decoration:underline;cursor:pointer;}
+
+    /* footer */
+    footer{
+      margin-top:24px;
+      background:#fff;
+      padding:12px 24px;
+      text-align:center;
+      font-size:12px;
+      color:#555;
+      box-shadow:0 -4px 12px rgba(0,0,0,0.05);
+    }
+
+    /* responsive */
+    @media (max-width:900px){
+      .container{grid-template-columns:1fr}
+      .recipe-panel{width:90%; height:75%; top:12.5%;}
+      .card img{width:130px;height:90px;}
+      .left-design{flex-direction:row;justify-content:space-between;gap:8px;}
+      .featured-card img{width:40px;height:30px;}
+    }
+  </style>
 </head>
 <body>
-<h1>Classic Filipino Recipes (15)</h1>
-<p>Click a recipe to view details.</p>
+  <header class="topbar">
+    <div class="logo">FilipinoRecipes</div>
+    <div class="search"><input id="searchInput" placeholder="Search recipes... (try: adobo)" /></div>
+    <div class="team-button" onclick="location.href='team.html'">Project Team</div>
+  </header>
 
+  <div class="container">
+    <!-- Left design area / Featured Recipes -->
+    <aside class="left-design">
+      <h4>Featured Recipes</h4>
+      <div class="featured-card">
+        <img src="images/adobo.jpg" alt="Adobo">
+        <div>Chicken Adobo</div>
+      </div>
+      <div class="featured-card">
+        <img src="images/sinigang.jpg" alt="Sinigang">
+        <div>Pork Sinigang</div>
+      </div>
+      <div class="featured-card">
+        <img src="images/lumpia.jpg" alt="Lumpia">
+        <div>Lumpia</div>
+      </div>
+    </aside>
 
-<div class="container">
-<ul class="recipe-list">
-<li onclick="openRecipe('adobo')">Adobo</li>
-<li onclick="openRecipe('sinigang')">Sinigang</li>
-<li onclick="openRecipe('kare')">Kare-Kare</li>
-<li onclick="openRecipe('sisig')">Sisig</li>
-<li onclick="openRecipe('tinola')">Tinola</li>
-<li onclick="openRecipe('bulalo')">Bulalo</li>
-<li onclick="openRecipe('menudo')">Menudo</li>
-<li onclick="openRecipe('pochero')">Pochero</li>
-<li onclick="openRecipe('caldereta')">Caldereta</li>
-<li onclick="openRecipe('nilaga')">Nilaga</li>
-<li onclick="openRecipe('pinakbet')">Pinakbet</li>
-<li onclick="openRecipe('laing')">Laing</li>
-<li onclick="openRecipe('bicol')">Bicol Express</li>
-<li onclick="openRecipe('tortang')">Tortang Talong</li>
-<li onclick="openRecipe('champorado')">Champorado</li>
-</ul>
+    <main class="main">
+      <div class="controls">
+        <div class="tag">All Recipes</div>
+        <div class="tag">Popular</div>
+      </div>
 
+      <h1>Classic Filipino Recipes</h1>
+      <div class="sub">Click a recipe to see details and calories</div>
 
-<div id="recipePage" class="recipe-page hidden">
-<h2 id="recipeTitle"></h2>
+      <section class="recipes" id="recipes">
+        <article class="card" data-title="Chicken Adobo" data-calories="350 kcal" data-img="images/adobo.jpg" data-ingredients="2 tbsp canola oil\n6 cloves garlic crushed\n1 pc onion, sliced\n1 kg chicken cut ups\n2 tbsp vinegar\n1/4 cup soy sauce\n1 cup water\n2 pcs bay leaves\n1 tsp whole black peppercorns, slightly crushed\n2 pc Knorr chicken cubes\n1 tsp brown sugar packed\nOption: 1 cup kale or spinach" data-steps="1. Heat oil in pan and sauté garlic and onions.\n2. Then add chicken to the pan and sear on all sides, until you have a little browning in the chicken skin.\n3. Pour in vinegar, soy sauce and water.\n4. Add bay leaves, pepper and Knorr Chicken Cubes.\n5. Bring to a boil over high heat then reduce heat to simmer, but do not cover the pan.\n6. Continue to simmer for 10 mins.\n7. Remove chicken pieces from sauce and fry in another pan until nicely browned.\n8. Put back fried chicken pieces into sauce. Add sugar and let simmer again for another 10 minutes or until sauce has thickened. Serve warm." data-video="https://youtube.com/replace-with-link">
+          <img src="images/adobo.jpg" alt="Adobo"/>
+          <div class="meta">
+            <h3>Chicken Adobo</h3>
+            <p>Calories: 350 kcal</p>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
 
+  <!-- Slide-in panel -->
+  <div class="recipe-panel" id="recipePanel">
+    <span class="close-btn" id="closePanel">&times;</span>
+    <img id="panelImg" src="" alt="Recipe Image"/>
+    <h2 id="panelTitle">Recipe Name</h2>
+    <p id="panelCalories">Calories: </p>
+    <h3>Ingredients:</h3>
+    <pre id="panelIngredients"></pre>
+    <h3>Cook:</h3>
+    <pre id="panelSteps"></pre>
+    <a id="panelVideo" class="video-link" href="#" target="_blank">For a detailed demonstration, please refer to this instructional video.</a>
+  </div>
 
-<!-- IMAGE PLACEHOLDER -->
-<!-- Replace the text below with an <img> tag -->
-<div id="recipeImage" style="width:100%;height:200px;background:#eee;display:flex;align-items:center;justify-content:center;">
-This is where you put the image of the recipe.
-</div>
+  <!-- Footer -->
+  <footer>
+    <!-- Replace your email here -->
+    Email us at: <a href="mailto:your-email@example.com">wasssupppp</a> <br>
+    Disclaimer: This website is created for educational purposes / school project only.
+  </footer>
 
+  <script>
+    // search filter
+    document.getElementById('searchInput').addEventListener('input', e=>{
+      const q = e.target.value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card=>{
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = title.includes(q) ? 'flex' : 'none';
+      });
+    });
 
-<h3>Calories</h3>
-<p id="recipeCalories"></p>
+    // slide panel functionality
+    const panel = document.getElementById('recipePanel');
+    const panelImg = document.getElementById('panelImg');
+    const panelTitle = document.getElementById('panelTitle');
+    const panelCalories = document.getElementById('panelCalories');
+    const panelIngredients = document.getElementById('panelIngredients');
+    const panelSteps = document.getElementById('panelSteps');
+    const panelVideo = document.getElementById('panelVideo');
+    const closeBtn = document.getElementById('closePanel');
 
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        panelImg.src = card.dataset.img;
+        panelTitle.textContent = card.dataset.title;
+        panelCalories.textContent = "Calories: " + card.dataset.calories;
+        panelIngredients.textContent = card.dataset.ingredients;
+        panelSteps.textContent = card.dataset.steps;
+        panelVideo.href = card.dataset.video;
+        panel.classList.add('active');
+      });
+    });
 
-<h3>Recipe Instructions</h3>
-<p id="recipeInstructions"></p>
-</div>
-</div>
-
-
-<script>
-const recipes = {
-adobo: {
-title: "Adobo",
-calories: "Approx. 650 calories per serving",
-instructions: "This is where you write the steps for cooking adobo (example: sauté garlic, add pork/chicken, soy sauce, vinegar, simmer)."
-},
-sinigang: {
-title: "Sinigang",
-calories: "Approx. 420 calories per serving",
-instructions: "This is where you put your Sinigang instructions."
-},
-kare: {
-title: "Kare-Kare",
-calories: "Approx. 780 calories per serving",
-instructions: "This is where you put the Kare-Kare recipe steps."
-},
-sisig: {
-title: "Sisig",
-calories: "Approx. 700 calories per serving",
-instructions: "This is where you put your Sisig recipe steps."
-},
-tinola: {
-title: "Tinola",
-calories: "Approx. 350 calories per serving",
-instructions: "This is where you put the Tinola recipe steps."
-},
-bulalo: {
-title: "Bulalo",
-calories: "Approx. 950 calories per serving",
-instructions: "This is where you put the Bulalo recipe."
-},
-menudo: {
-title: "Menudo",
-calories: "Approx. 480 calories per serving",
-instructions: "This is where you put the Menudo recipe steps."
-},
-pochero: {
+    closeBtn.addEventListener('click', ()=>{
+      panel.classList.remove('active');
+    });
+  </script>
+</body>
 </html>
