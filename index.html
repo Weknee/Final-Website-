@@ -49,10 +49,10 @@
     .left-design h4{margin:0 0 8px 0;color:#e94b5c;font-size:16px;text-align:center;}
     .featured-card{
       display:flex;gap:10px;align-items:center;background:var(--muted);padding:8px;border-radius:10px;cursor:pointer;
-      transition:0.2s;
+      transition:0.3s;
     }
     .featured-card img{width:50px;height:40px;object-fit:cover;border-radius:6px;}
-    .featured-card:hover{background:#cfeadf;}
+    .featured-card:hover{background:#cfeadf; transform:scale(1.03);}
 
     /* main */
     .main{padding:6px}
@@ -95,16 +95,16 @@
 
     /* Ingredients & Steps */
     .recipe-panel pre{
-      white-space: pre-wrap;       /* preserve line breaks */
+      white-space: pre-wrap;
       line-height: 1.5;
       color: #555;
-      font-family: 'Georgia', serif; /* OLD website font */
+      font-family: 'Georgia', serif;
       font-size: 14px;
       background: #f9f9f9;
       padding: 12px;
       border-radius: 8px;
       word-wrap: break-word;
-      overflow-wrap: break-word;   /* prevents horizontal scroll */
+      overflow-wrap: break-word;
       margin-bottom: 10px;
     }
 
@@ -152,17 +152,19 @@
     <!-- Left design area -->
     <aside class="left-design">
       <h4>Featured Recipes</h4>
-      <div class="featured-card">
+      <!-- Only Chicken Adobo stays in featured -->
+      <div class="featured-card" data-title="Chicken Adobo" data-calories="350 kcal" data-img="images/adobo.jpg" data-ingredients="2 tbsp canola oil&#10;6 cloves garlic crushed&#10;1 pc onion, sliced&#10;1 kg chicken cut ups&#10;2 tbsp vinegar&#10;1/4 cup soy sauce&#10;1 cup water&#10;2 pcs bay leaves&#10;1 tsp whole black peppercorns, slightly crushed&#10;2 pc Knorr chicken cubes&#10;1 tsp brown sugar packed&#10;Option: 1 cup kale or spinach" data-steps="1. Heat oil in pan and sauté garlic and onions.&#10;2. Then add chicken to the pan and sear on all sides, until you have a little browning in the chicken skin.&#10;3. Pour in vinegar, soy sauce and water.&#10;4. Add bay leaves, pepper and Knorr Chicken Cubes.&#10;5. Bring to a boil over high heat then reduce heat to simmer, but do not cover the pan.&#10;6. Continue to simmer for 10 mins.&#10;7. Remove chicken pieces from sauce and fry in another pan until nicely browned.&#10;8. Put back fried chicken pieces into sauce. Add sugar and let simmer again for another 10 minutes or until sauce has thickened. Serve warm." data-video="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">
         <img src="images/adobo.jpg" alt="Adobo">
         <div>Chicken Adobo</div>
       </div>
+      <!-- Placeholder featured recipes (you can replace images & names later) -->
       <div class="featured-card">
-        <img src="images/sinigang.jpg" alt="Sinigang">
-        <div>Pork Sinigang</div>
+        <img src="images/placeholder.jpg" alt="Placeholder1">
+        <div>Featured 2</div>
       </div>
       <div class="featured-card">
-        <img src="images/lumpia.jpg" alt="Lumpia">
-        <div>Lumpia</div>
+        <img src="images/placeholder.jpg" alt="Placeholder2">
+        <div>Featured 3</div>
       </div>
     </aside>
 
@@ -176,11 +178,114 @@
       <div class="sub">Click a recipe to see details and calories</div>
 
       <section class="recipes" id="recipes">
+        <!-- Chicken Adobo -->
         <article class="card" data-title="Chicken Adobo" data-calories="350 kcal" data-img="images/adobo.jpg" data-ingredients="2 tbsp canola oil&#10;6 cloves garlic crushed&#10;1 pc onion, sliced&#10;1 kg chicken cut ups&#10;2 tbsp vinegar&#10;1/4 cup soy sauce&#10;1 cup water&#10;2 pcs bay leaves&#10;1 tsp whole black peppercorns, slightly crushed&#10;2 pc Knorr chicken cubes&#10;1 tsp brown sugar packed&#10;Option: 1 cup kale or spinach" data-steps="1. Heat oil in pan and sauté garlic and onions.&#10;2. Then add chicken to the pan and sear on all sides, until you have a little browning in the chicken skin.&#10;3. Pour in vinegar, soy sauce and water.&#10;4. Add bay leaves, pepper and Knorr Chicken Cubes.&#10;5. Bring to a boil over high heat then reduce heat to simmer, but do not cover the pan.&#10;6. Continue to simmer for 10 mins.&#10;7. Remove chicken pieces from sauce and fry in another pan until nicely browned.&#10;8. Put back fried chicken pieces into sauce. Add sugar and let simmer again for another 10 minutes or until sauce has thickened. Serve warm." data-video="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">
           <img src="images/adobo.jpg" alt="Adobo"/>
           <div class="meta">
             <h3>Chicken Adobo</h3>
             <p>Calories: 350 kcal</p>
+          </div>
+        </article>
+        <!-- Lumpia -->
+        <article class="card" data-title="Lumpia" data-calories="250 kcal" data-img="images/lumpia.jpg" data-ingredients="1 cup carrots, shredded&#10;1 cup cabbage, shredded&#10;1/2 cup green beans, sliced&#10;1/2 lb ground pork&#10;1 tbsp soy sauce&#10;1 tsp sesame oil&#10;1 pack lumpia wrappers" data-steps="1. Mix vegetables and pork with soy sauce and sesame oil.&#10;2. Place filling in lumpia wrapper and roll tightly.&#10;3. Fry until golden brown.&#10;4. Serve with sweet chili sauce." data-video="#">
+          <img src="images/lumpia.jpg" alt="Lumpia"/>
+          <div class="meta">
+            <h3>Lumpia</h3>
+            <p>Calories: 250 kcal</p>
+          </div>
+        </article>
+        <!-- Pork Sinigang -->
+        <article class="card" data-title="Pork Sinigang" data-calories="300 kcal" data-img="images/sinigang.jpg" data-ingredients="1 lb pork ribs&#10;1 tomato, quartered&#10;1 onion, quartered&#10;1 radish, sliced&#10;1 cup string beans&#10;1 pack tamarind soup base&#10;1 bunch kangkong (water spinach)" data-steps="1. Boil pork ribs with tomato and onion until tender.&#10;2. Add radish and string beans.&#10;3. Pour in tamarind soup base.&#10;4. Add kangkong before serving.&#10;5. Serve hot." data-video="#">
+          <img src="images/sinigang.jpg" alt="Sinigang"/>
+          <div class="meta">
+            <h3>Pork Sinigang</h3>
+            <p>Calories: 300 kcal</p>
+          </div>
+        </article>
+        <!-- Prefill 4–15 -->
+        <article class="card" data-title="Recipe 4" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 4"/>
+          <div class="meta">
+            <h3>Recipe 4</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <article class="card" data-title="Recipe 5" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 5"/>
+          <div class="meta">
+            <h3>Recipe 5</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <article class="card" data-title="Recipe 6" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 6"/>
+          <div class="meta">
+            <h3>Recipe 6</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <!-- repeat for 7–15 -->
+        <article class="card" data-title="Recipe 7" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 7"/>
+          <div class="meta">
+            <h3>Recipe 7</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <article class="card" data-title="Recipe 8" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 8"/>
+          <div class="meta">
+            <h3>Recipe 8</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <article class="card" data-title="Recipe 9" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 9"/>
+          <div class="meta">
+            <h3>Recipe 9</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <article class="card" data-title="Recipe 10" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 10"/>
+          <div class="meta">
+            <h3>Recipe 10</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <article class="card" data-title="Recipe 11" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 11"/>
+          <div class="meta">
+            <h3>Recipe 11</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <article class="card" data-title="Recipe 12" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 12"/>
+          <div class="meta">
+            <h3>Recipe 12</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <article class="card" data-title="Recipe 13" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 13"/>
+          <div class="meta">
+            <h3>Recipe 13</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <article class="card" data-title="Recipe 14" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 14"/>
+          <div class="meta">
+            <h3>Recipe 14</h3>
+            <p>Calories: TBD</p>
+          </div>
+        </article>
+        <article class="card" data-title="Recipe 15" data-calories="TBD" data-img="images/placeholder.jpg" data-ingredients="Ingredients to be added" data-steps="Steps to be added" data-video="#">
+          <img src="images/placeholder.jpg" alt="Recipe 15"/>
+          <div class="meta">
+            <h3>Recipe 15</h3>
+            <p>Calories: TBD</p>
           </div>
         </article>
       </section>
@@ -207,7 +312,7 @@
 
   <!-- Footer -->
   <footer>
-    Email us on: <a href="mailto:your-email@example.com">derivative@gmail.com</a><br>
+    Email us on: <a href="mailto:derivative@gmail.com">derivative@gmail.com</a><br>
     Disclaimer: This website is for educational purposes and a school project for CCC100.
   </footer>
 
@@ -232,16 +337,22 @@
     const panelVideo = document.getElementById('panelVideo');
     const closeBtn = document.getElementById('closePanel');
 
-    document.querySelectorAll('.card').forEach(card=>{
-      card.addEventListener('click', ()=>{
-        panelImg.src = card.dataset.img;
-        panelTitle.textContent = card.dataset.title;
-        panelCalories.textContent = "Calories: " + card.dataset.calories;
-        panelIngredients.textContent = card.dataset.ingredients;
-        panelSteps.textContent = card.dataset.steps;
-        panelVideo.href = card.dataset.video;
+    function openPanel(card) {
+      panel.classList.remove('active');
+      setTimeout(()=>{
+        panelImg.src = card.dataset.img || "";
+        panelTitle.textContent = card.dataset.title || "Recipe Name";
+        panelCalories.textContent = card.dataset.calories ? "Calories: " + card.dataset.calories : "";
+        panelIngredients.textContent = card.dataset.ingredients || "";
+        panelSteps.textContent = card.dataset.steps || "";
+        panelVideo.href = card.dataset.video || "#";
         panel.classList.add('active');
-      });
+      }, 50);
+    }
+
+    // Click all cards (recipe + featured)
+    document.querySelectorAll('.card, .featured-card').forEach(card=>{
+      card.addEventListener('click', ()=>openPanel(card));
     });
 
     closeBtn.addEventListener('click', ()=>{
