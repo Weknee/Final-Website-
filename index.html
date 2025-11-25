@@ -1,0 +1,181 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SuperCook — Recipes Finder (Mock)</title>
+  <style>
+    :root{
+      --accent:#e94b5c;
+      --muted:#f4f4f6;
+      --chip:#f2f6f2;
+      --radius:12px;
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:#fafafa;color:#222}
+
+    /* header */
+    .topbar{background:linear-gradient(180deg,var(--accent),#d64b58);color:white;padding:18px 24px}
+    .topbar .inner{display:flex;gap:18px;align-items:center}
+    .logo{font-weight:700;font-size:20px}
+    .search{flex:1}
+    .search input{width:100%;padding:12px 16px;border-radius:20px;border:0;outline:0}
+
+    /* layout */
+    .container{display:grid;grid-template-columns:280px 1fr;padding:22px;gap:20px}
+
+    /* left pane */
+    .left{background:white;padding:18px;border-radius:14px;box-shadow:0 6px 18px rgba(10,10,20,0.04)}
+    .left h4{margin:0 0 12px 0;font-size:15px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:var(--chip);padding:8px 12px;border-radius:999px;font-size:13px;cursor:pointer}
+    .chip.active{background:#cfeadf}
+    .section{margin-top:18px}
+
+    /* main */
+    .main{padding:6px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+    .tag{background:var(--muted);padding:8px 12px;border-radius:999px;font-size:13px}
+
+    h1{font-size:28px;margin:8px 0}
+    .sub{color:#666;margin-bottom:10px}
+
+    .ingredients-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+    .ing{background:#f3f3f8;padding:8px 12px;border-radius:8px}
+
+    /* recipe list */
+    .recipes{display:grid;grid-template-columns:1fr;gap:12px}
+    .card{display:flex;gap:12px;align-items:center;background:white;padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(10,10,20,0.04)}
+    .card img{width:180px;height:110px;object-fit:cover;border-radius:8px}
+    .card .meta{flex:1}
+    .card .meta h3{margin:4px 0;font-size:16px}
+    .card .meta p{margin:4px 0;color:#777;font-size:13px}
+
+    /* responsive */
+    @media (max-width:900px){
+      .container{grid-template-columns:1fr}
+      .left{order:2}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="inner">
+      <div class="logo">SuperCook</div>
+      <div class="search"><input id="searchInput" placeholder="Find... (try: scrambled egg)" /></div>
+      <div style="min-width:120px;text-align:right">You can make <strong>814</strong> recipes</div>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="left">
+      <h4>Key Ingredients</h4>
+      <div class="chips" id="chips">
+        <div class="chip" data-ing="egg">egg</div>
+        <div class="chip" data-ing="butter">butter</div>
+        <div class="chip" data-ing="garlic">garlic</div>
+        <div class="chip" data-ing="milk">milk</div>
+        <div class="chip" data-ing="flour">flour</div>
+        <div class="chip" data-ing="olive oil">olive oil</div>
+        <div class="chip" data-ing="sugar">sugar</div>
+        <div class="chip" data-ing="ketchup">ketchup</div>
+        <div class="chip" data-ing="soy sauce">soy sauce</div>
+        <div class="chip" data-ing="mayonnaise">mayonnaise</div>
+      </div>
+
+      <div class="section">
+        <h4>Vegetables & Greens</h4>
+        <div class="chips">
+          <div class="chip">garlic</div>
+          <div class="chip">onion</div>
+          <div class="chip">bell pepper</div>
+          <div class="chip">scallion</div>
+          <div class="chip">carrot</div>
+          <div class="chip">tomato</div>
+          <div class="chip">potato</div>
+          <div class="chip">avocado</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="controls">
+        <div class="tag">Key Ingredient(s)</div>
+        <div class="tag">Exclude</div>
+        <div class="tag">Meal type</div>
+        <div class="tag">Missing one ingredient</div>
+        <div class="tag">Video only</div>
+        <div class="tag">Cuisines</div>
+      </div>
+
+      <h1>You can make <span id="count">814</span> recipes</h1>
+      <div class="sub">Do you have?</div>
+
+      <div class="ingredients-bar" id="haveBar">
+        <div class="ing">bread</div>
+        <div class="ing">flour</div>
+        <div class="ing">lemon</div>
+        <div class="ing">milk</div>
+        <div class="ing">cheddar</div>
+        <div class="ing">heavy cream</div>
+      </div>
+
+      <section class="recipes" id="recipes">
+        <!-- cards (using uploaded image as placeholder) -->
+        <article class="card">
+          <img src="images/27dc61ed-b6d4-4f3c-89d4-4fb4fbb772a4.png" alt="Scrambled Egg"/>
+          <div class="meta">
+            <h3>Scrambled Egg Recipe</h3>
+            <p>feedingyourfam.com — You have all 2 ingredients</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="images/27dc61ed-b6d4-4f3c-89d4-4fb4fbb772a4.png" alt="Sunny Side Up"/>
+          <div class="meta">
+            <h3>Sunny-Side Up Recipe by Tasty</h3>
+            <p>tasty.co — You have all 2 ingredients</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="images/27dc61ed-b6d4-4f3c-89d4-4fb4fbb772a4.png" alt="Best Fried Egg"/>
+          <div class="meta">
+            <h3>The Best Fried Egg Recipe</h3>
+            <p>foodblog — You have all 2 ingredients</p>
+          </div>
+        </article>
+
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // simple interactivity for chips and search (mock behavior)
+    const chips = document.querySelectorAll('.chip');
+    chips.forEach(c=>c.addEventListener('click',()=>{
+      c.classList.toggle('active');
+      updateCount();
+    }));
+
+    function updateCount(){
+      // mock: reduce count as chips selected
+      const selected = document.querySelectorAll('.chip.active').length;
+      const base = 814;
+      const newCount = Math.max(10, base - selected*37);
+      document.getElementById('count').textContent = newCount;
+    }
+
+    document.getElementById('searchInput').addEventListener('input', e=>{
+      const q = e.target.value.trim().toLowerCase();
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card=>{
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = title.includes(q) ? 'flex' : 'none';
+      })
+    });
+  </script>
+</body>
+</html>
