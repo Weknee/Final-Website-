@@ -1,113 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>15 Classic Filipino Recipes</title>
-  <style>
-    body{font-family:Inter, system-ui, Arial; margin:0; background:#fffbe8; color:#222}
-    header{background:#b71c1c;color:white;padding:18px}
-    .container{max-width:1000px;margin:18px auto;padding:0 16px}
-    .title{display:flex;justify-content:space-between;align-items:center}
-    .search{margin-top:12px}
-    input[type=text]{width:100%;padding:10px;border-radius:8px;border:1px solid #ddd}
-    .filter{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
-    .tag{padding:6px 10px;background:#fff4e6;border-radius:999px;border:1px solid #ffdca8;cursor:pointer}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:16px}
-    .card{background:white;border-radius:10px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,0.06);display:flex;gap:12px;align-items:center;padding:10px}
-    .card img{width:120px;height:90px;object-fit:cover;border-radius:6px}
-    .meta h3{margin:0;font-size:18px}
-    .meta p{margin:6px 0;color:#555}
-    .meta .cal{font-weight:600;color:#b71c1c}
-    footer{text-align:center;color:#666;margin:28px 0}
-    a.card-link{text-decoration:none;color:inherit;display:flex;gap:12px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classic Filipino Recipes</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+.container { display: flex; gap: 30px; }
+.recipe-list { width: 30%; }
+.recipe-list li { margin-bottom: 10px; cursor: pointer; color: blue; text-decoration: underline; }
+.recipe-page { width: 70%; border-left: 1px solid #ccc; padding-left: 20px; }
+.hidden { display: none; }
+</style>
 </head>
 <body>
-  <header>
-    <div class="container title">
-      <h1>15 Classic Filipino Recipes</h1>
-      <div>Click a recipe to open its page →</div>
-    </div>
-  </header>
-  <main class="container">
-    <div class="search">
-      <input id="search" placeholder="Search recipes (e.g. adobo, sinigang)">
-    </div>
+<h1>Classic Filipino Recipes (15)</h1>
+<p>Click a recipe to view details.</p>
 
-    <div class="filter" id="filters">
-      <div class="tag" data-cat="All">All</div>
-      <div class="tag" data-cat="Main">Main</div>
-      <div class="tag" data-cat="Soup">Soup</div>
-      <div class="tag" data-cat="Noodle">Noodle</div>
-      <div class="tag" data-cat="Vegetable">Vegetable</div>
-      <div class="tag" data-cat="Appetizer">Appetizer</div>
-      <div class="tag" data-cat="Comfort">Comfort</div>
-    </div>
 
-    <div class="grid" id="grid">
+<div class="container">
+<ul class="recipe-list">
+<li onclick="openRecipe('adobo')">Adobo</li>
+<li onclick="openRecipe('sinigang')">Sinigang</li>
+<li onclick="openRecipe('kare')">Kare-Kare</li>
+<li onclick="openRecipe('sisig')">Sisig</li>
+<li onclick="openRecipe('tinola')">Tinola</li>
+<li onclick="openRecipe('bulalo')">Bulalo</li>
+<li onclick="openRecipe('menudo')">Menudo</li>
+<li onclick="openRecipe('pochero')">Pochero</li>
+<li onclick="openRecipe('caldereta')">Caldereta</li>
+<li onclick="openRecipe('nilaga')">Nilaga</li>
+<li onclick="openRecipe('pinakbet')">Pinakbet</li>
+<li onclick="openRecipe('laing')">Laing</li>
+<li onclick="openRecipe('bicol')">Bicol Express</li>
+<li onclick="openRecipe('tortang')">Tortang Talong</li>
+<li onclick="openRecipe('champorado')">Champorado</li>
+</ul>
 
-      <!-- RECIPE CARDS: copy/paste or edit the card section below to add/remove cards.
-           Each card links to its own page (example: adobo.html). -->
-      <!-- Example card (repeat for each recipe) -->
-      <article class="card" data-title="chicken adobo" data-cat="Main">
-        <a class="card-link" href="adobo.html">
-          <!-- HEADS-UP: replace the image file in /images/ with your own. 
-               The current src should point to an image in the repo /images/ folder. -->
-          <img src="images/27dc61ed-b6d4-4f3c-89d4-4fb4fbb772a4.png" alt="Chicken Adobo image">
-          <div class="meta">
-            <h3>Chicken Adobo</h3>
-            <p>Savory soy-vinegar braised chicken.</p>
-            <div class="cal">420 kcal</div>
-          </div>
-        </a>
-      </article>
 
-      <!-- Add other recipe cards below following the same structure, make href match file names -->
-      <!-- Example:
-      <article class="card" data-title="pork sinigang" data-cat="Soup">
-        <a class="card-link" href="sinigang.html">
-          <img src="images/sinigang.jpg" alt="Pork Sinigang">
-          <div class="meta">
-            <h3>Pork Sinigang</h3>
-            <p>Tamarind sour soup with vegetables.</p>
-            <div class="cal">380 kcal</div>
-          </div>
-        </a>
-      </article>
-      -->
+<div id="recipePage" class="recipe-page hidden">
+<h2 id="recipeTitle"></h2>
 
-    </div>
 
-    <footer>
-      <small>Heads-up: replace the placeholder images in <code>/images/</code> with your own file names. Each recipe page includes a comment where to put recipe text and calories.</small>
-    </footer>
-  </main>
+<!-- IMAGE PLACEHOLDER -->
+<!-- Replace the text below with an <img> tag -->
+<div id="recipeImage" style="width:100%;height:200px;background:#eee;display:flex;align-items:center;justify-content:center;">
+This is where you put the image of the recipe.
+</div>
 
-  <script>
-    const recipes = Array.from(document.querySelectorAll('.card'));
-    const search = document.getElementById('search');
-    const filters = document.getElementById('filters');
 
-    search.addEventListener('input', e=>{
-      const q = e.target.value.trim().toLowerCase();
-      recipes.forEach(card => {
-        const title = card.dataset.title || '';
-        card.style.display = title.includes(q) ? 'flex' : 'none';
-      });
-    });
+<h3>Calories</h3>
+<p id="recipeCalories"></p>
 
-    filters.addEventListener('click', e=>{
-      const tag = e.target.closest('.tag');
-      if(!tag) return;
-      const cat = tag.dataset.cat;
-      // highlight active
-      Array.from(filters.querySelectorAll('.tag')).forEach(t=>t.style.background='');
-      tag.style.background='#ffdca8';
-      recipes.forEach(card=>{
-        if(cat==='All' || card.dataset.cat===cat) card.style.display='flex'; else card.style.display='none';
-      });
-    });
-  </script>
-</body>
+
+<h3>Recipe Instructions</h3>
+<p id="recipeInstructions"></p>
+</div>
+</div>
+
+
+<script>
+const recipes = {
+adobo: {
+title: "Adobo",
+calories: "Approx. 650 calories per serving",
+instructions: "This is where you write the steps for cooking adobo (example: sauté garlic, add pork/chicken, soy sauce, vinegar, simmer)."
+},
+sinigang: {
+title: "Sinigang",
+calories: "Approx. 420 calories per serving",
+instructions: "This is where you put your Sinigang instructions."
+},
+kare: {
+title: "Kare-Kare",
+calories: "Approx. 780 calories per serving",
+instructions: "This is where you put the Kare-Kare recipe steps."
+},
+sisig: {
+title: "Sisig",
+calories: "Approx. 700 calories per serving",
+instructions: "This is where you put your Sisig recipe steps."
+},
+tinola: {
+title: "Tinola",
+calories: "Approx. 350 calories per serving",
+instructions: "This is where you put the Tinola recipe steps."
+},
+bulalo: {
+title: "Bulalo",
+calories: "Approx. 950 calories per serving",
+instructions: "This is where you put the Bulalo recipe."
+},
+menudo: {
+title: "Menudo",
+calories: "Approx. 480 calories per serving",
+instructions: "This is where you put the Menudo recipe steps."
+},
+pochero: {
 </html>
